@@ -55,6 +55,8 @@ public class BookingService {
             booking.setEndDate(now);
         } else if (booking.getEndDate().before(now)) {
             return null;
+        } else {
+            booking.setEndDate(now);
         }
 
         return bookingRepository.save(booking);

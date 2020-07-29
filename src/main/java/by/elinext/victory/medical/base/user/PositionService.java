@@ -16,7 +16,7 @@ public class PositionService {
         return positionRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No position with such id."));
     }
 
-    public List<Position> getAllPositions(){
+    public List<Position> getAllPositions() {
         return positionRepository.findAll();
     }
 }
