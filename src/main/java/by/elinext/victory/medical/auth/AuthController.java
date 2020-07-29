@@ -1,6 +1,5 @@
 package by.elinext.victory.medical.auth;
 
-import by.elinext.victory.medical.base.user.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,11 +40,11 @@ public class AuthController {
         if (authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword()) != null) {
             Authentication auth = authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-                SecurityContextHolder.getContext().setAuthentication(auth);
+            SecurityContextHolder.getContext().setAuthentication(auth);
 
-                session.setAttribute("username", authenticationRequest.getUsername());
+            session.setAttribute("username", authenticationRequest.getUsername());
 
-                return new ModelAndView("redirect:/home");
+            return new ModelAndView("redirect:/home");
 
         } else {
 
@@ -72,12 +71,12 @@ public class AuthController {
             auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 
         } catch (DisabledException e) {
-            //  throw new Exception("USER_DISABLED", e);
-            return null;
+            throw new Exception("USER_DISABLED", e);
+            //return null;
         } catch (BadCredentialsException e) {
             System.out.println("invalid cred");
-            return null;
-            // throw new Exception("INVALID_CREDENTIALS", e);
+           // return null;
+             throw new Exception("INVALID_CREDENTIALS", e);
         }
 
         return auth;

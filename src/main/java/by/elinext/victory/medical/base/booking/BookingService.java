@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class BookingService {
+
     @Inject
     private BookingRepository bookingRepository;
 
@@ -26,16 +27,36 @@ public class BookingService {
 
         booking.setStartDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
 
-        if (isRoomFreeAtTime(booking.getRoomID(), booking.getStartDate(), booking.getEndDate())) {
+        if (isRoomFreeAtTime(booking.getRoomID(), booking.getStartDate(), booking.getEndDate()) && isUserFreeAtTime(booking.getUserID(), booking.getStartDate(), booking.getEndDate())) {
 
             return bookingRepository.save(booking);
         }
-       // System.out.println("Room is unavailable at this time.");
 
         return null;
     }
 
     public Boolean isRoomFreeAtTime(Integer roomId, Timestamp startTime, Timestamp endTime) {
+
         return bookingRepository.isRoomFree(startTime, endTime, roomId).isEmpty();
+    }
+
+    public Boolean isUserFreeAtTime(Integer userId, Timestamp startTime, Timestamp endTime) {
+
+        return bookingRepository.isUserFree(startTime, endTime, userId).isEmpty();
+    }
+
+    public Booking freeRoomNow(String id) {
+
+        Booking booking = getById(id);
+        Timestamp now = new Timestamp(Calendar.getInstance().getTime().getTime());
+
+        if (booking.getStartDate().after(now)) {
+            booking.setStartDate(now);
+            booking.setEndDate(now);
+        } else if (booking.getEndDate().before(now)) {
+            return null;
+        }
+
+        return bookingRepository.save(booking);
     }
 }

@@ -88,6 +88,7 @@ http://www.thymeleaf.org ">
         <ul>
             <li class="active"><a th:href="@{/rooms/myBooking}">my booking</a></li>
             <li><a th:href="@{/home}">home</a></li>
+            <li><a th:href="@{/new}">add new</a></li>
             <li><a th:href="@{/logout}">logout</a></li>
         </ul>
     </div>
@@ -110,7 +111,7 @@ http://www.thymeleaf.org ">
             <td th:text="${book.name}"></td>
             <td th:text="${book.description}"></td>
             <td>
-                <a  target="_blank"></a>
+                <a th:href="@{'/room/' + ${book.name} + '/free'}" target="_blank">free room</a>
             </td>
         </tr>
     </th:block>

@@ -1,8 +1,10 @@
 package by.elinext.victory.medical.base.booking;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 @Entity
 @Table(name = "Booking")
@@ -27,10 +29,10 @@ public class Booking {
     @Column(name = "end_date")
     private Timestamp endDate;
 
-    public Booking(){
+    public Booking() {
     }
 
-    public Booking(Integer roomID){
+    public Booking(Integer roomID) {
         this.setRoomID(roomID);
     }
 
