@@ -18,7 +18,7 @@ public class BookingService {
         return bookingRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No booking with such name."));
     }
 
-    public List<Booking> findUsersBookings(int userId){
+    public List<Booking> findUsersBookings(int userId) {
         return bookingRepository.findByUserId(userId);
     }
 
@@ -26,6 +26,16 @@ public class BookingService {
 
         booking.setStartDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
 
-        return bookingRepository.save(booking);
+        if (isRoomFreeAtTime(booking.getRoomID(), booking.getStartDate(), booking.getEndDate())) {
+
+            return bookingRepository.save(booking);
+        }
+       // System.out.println("Room is unavailable at this time.");
+
+        return null;
+    }
+
+    public Boolean isRoomFreeAtTime(Integer roomId, Timestamp startTime, Timestamp endTime) {
+        return bookingRepository.isRoomFree(startTime, endTime, roomId).isEmpty();
     }
 }

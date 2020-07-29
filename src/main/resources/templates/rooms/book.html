@@ -7,6 +7,7 @@ http://www.thymeleaf.org ">
     <title>book</title>
 
     <style>
+
         #menu {
             float: right;
             padding-right: 30px;
@@ -62,6 +63,8 @@ http://www.thymeleaf.org ">
         </ul>
     </div>
 </div>
+
+<br>
 
 <form  th:action="@{'/room/' + ${booking.roomID} + '/book'}" th:object="${booking}" method="post">
 

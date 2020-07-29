@@ -1,9 +1,7 @@
 package by.elinext.victory.medical;
 
-import by.elinext.victory.medical.auth.JwtRequest;
 import by.elinext.victory.medical.base.booking.Booking;
 import by.elinext.victory.medical.base.booking.BookingService;
-import by.elinext.victory.medical.base.room.Room;
 import by.elinext.victory.medical.base.room.RoomService;
 import by.elinext.victory.medical.base.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -64,7 +62,9 @@ public class MainController {
             booking.setUserID(userService.getByUsername(session.getAttribute("username").toString()).getId());
             booking.setRoomID(id);
 
-            bookingService.createAndSave(booking);
+            if (bookingService.createAndSave(booking) ==  null) {
+                //warn message
+            }
 
             return new ModelAndView("redirect:/rooms/myBooking");
         } else {
