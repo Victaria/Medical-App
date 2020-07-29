@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org
+http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>book</title>
+
+    <style>
+        #menu {
+            float: right;
+            padding-right: 30px;
+        }
+
+        #menu ul {
+            margin: 0;
+            padding: 15px 0 0 0;
+            list-style: none;
+        }
+
+        #menu li {
+            display: inline;
+        }
+
+        #menu a {
+            display: block;
+            float: left;
+
+            margin-left: 5px;
+            padding: 5px 20px;
+            text-decoration: none;
+            font-size: 13px;
+            color: #999999;
+        }
+
+        #menu a:hover {
+            border-bottom: 3px #999999 solid;
+            text-decoration: none;
+        }
+
+        #menu .active a {
+            border-bottom: 3px #999999 solid;
+        }
+
+
+        #wrapper {
+            border-top: 1px dotted #CCCCCC;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <div id="logo">
+        <h1><a href="">book<sup></sup></a></h1>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a th:href="@{/rooms/myBooking}">my booking</a></li>
+            <li><a th:href="@{/home}">home</a></li>
+            <li><a th:href="@{/logout}">logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<form  th:action="@{'/room/' + ${booking.roomID} + '/book'}" th:object="${booking}" method="post">
+
+    <h1>Booking of #<span id="roomId" th:text="*{roomID}"></span></h1>
+    <a style="alignment: right" th:href="@{/logout}">Logout</a>
+
+    <input id="endDate" onchange="TDate()" type="datetime-local">
+    <input id="endTimeStamp" th:field="*{endDate}" type="hidden">
+
+    <script type="text/javascript">
+        document.getElementById("endDate").min = Date.now();
+        document.getElementById("endDate").value = Date.now();
+
+        function TDate() {
+            var UserDate = document.getElementById("endDate").value;
+            var ToDate = new Date();
+
+            if (new Date(UserDate).getTime() <= ToDate.getTime()) {
+                alert("The Date must be Bigger or Equal to current time");
+                document.getElementById("endDate").value = Date.now();
+                return false;
+            }
+
+            var date = new Date(UserDate);
+            var dateStr =
+                (date.getFullYear()) + "-"  +
+                ("00" + (date.getMonth() + 1)).slice(-2) + "-" +
+                ("00" + date.getDate()).slice(-2) + " " +
+
+                ("00" + date.getHours()).slice(-2) + ":" +
+                ("00" + date.getMinutes()).slice(-2) + ":" +
+                ("00" + date.getSeconds()).slice(-2);
+            document.getElementById("endTimeStamp").value = dateStr;
+            return true;
+        }
+    </script>
+
+    <p>Name:</p>
+    <input id="bookName" th:field="*{name}" type="text" >
+    <br>
+    <p><textarea th:field="*{description}" id="description" style="resize: none; width: 600px; height: 80px"
+                 placeholder="Enter description ..."></textarea></p>
+
+    <p><input type="submit" value="Send"></p>
+
+</form>
+</body>
+</html>

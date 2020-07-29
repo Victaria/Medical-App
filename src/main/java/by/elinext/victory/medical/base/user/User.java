@@ -13,10 +13,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstname;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastname;
 
     @Column(name = "username")
@@ -26,7 +26,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "positionID")
+    @Column(name = "position_id")
     private Integer positionID;
 
     public Integer getId() {

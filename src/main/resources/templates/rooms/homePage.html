@@ -1,10 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org
+http://www.thymeleaf.org ">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Book room</title>
+    <style>
+        table, td, th {
+            border: 1px solid black;
+        }
+        th{
+            padding: 10px;
+            text-align: center;
+        }
+        td {
+            padding: 3px 5px;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+        }
+        th{
+            padding: 10px;
+            text-align: center;
+        }
+        td {
+            padding: 3px 5px;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #menu {
+            float: right;
+            padding-right: 30px;
+        }
+
+        #menu ul {
+            margin: 0;
+            padding: 15px 0 0 0;
+            list-style: none;
+        }
+
+        #menu li {
+            display: inline;
+        }
+
+        #menu a {
+            display: block;
+            float: left;
+
+            margin-left: 5px;
+            padding: 5px 20px;
+            text-decoration: none;
+            font-size: 13px;
+            color: #999999;
+        }
+
+        #menu a:hover {
+            border-bottom: 3px #999999 solid;
+            text-decoration: none;
+        }
+
+        #menu .active a {
+            border-bottom: 3px #999999 solid;
+        }
+
+
+        #wrapper {
+            border-top: 1px dotted #CCCCCC;
+        }
+    </style>
 </head>
 <body>
 
+<div id="header">
+    <div id="logo">
+        <h1><a href="">Home Page<sup></sup></a></h1>
+    </div>
+    <div id="menu">
+        <ul>
+            <li><a th:href="@{/rooms/myBooking}">my booking</a></li>
+            <li class="active"><a th:href="@{/home}">home</a></li>
+            <li><a th:href="@{/logout}">logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<table>
+    <tr>
+        <th>№</th>
+        <th>Type</th>
+        <th>Book</th>
+    </tr>
+    <th:block th:each="room : ${freeRooms}">
+        <tr>
+            <td th:text="${room.id}"></td>
+            <td th:text="${room.typeID}"></td>
+            <td>
+                <a th:href="@{'/room/' + ${room.id}}" target="_blank">book now</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
 </body>
 </html>

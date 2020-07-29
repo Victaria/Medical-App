@@ -1,16 +1,17 @@
 package by.elinext.victory.medical.base.booking;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "Booking")
 public class Booking {
 
-    @Column(name = "roomID")
+    @Column(name = "room_id")
     private Integer roomID;
 
-    @Column(name = "userID")
+    @Column(name = "user_id")
     private Integer userID;
 
     @Id
@@ -20,11 +21,18 @@ public class Booking {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "startDate")
-    private Date startDate;
+    @Column(name = "start_date")
+    private Timestamp startDate;
 
-    @Column(name = "endDate")
-    private Date endDate;
+    @Column(name = "end_date")
+    private Timestamp endDate;
+
+    public Booking(){
+    }
+
+    public Booking(Integer roomID){
+        this.setRoomID(roomID);
+    }
 
     public Integer getRoomID() {
         return roomID;
@@ -58,19 +66,19 @@ public class Booking {
         this.description = description;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 }

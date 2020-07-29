@@ -10,7 +10,7 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "typeID")
+    @Column(name = "type_id")
     private Integer typeID;
 
     public Integer getId() {

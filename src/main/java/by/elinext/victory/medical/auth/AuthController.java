@@ -49,6 +49,8 @@ public class AuthController {
 
         } else {
 
+            session.removeAttribute("username");
+
             ModelAndView mav = new ModelAndView("loginPage", "authRequest", new JwtRequest());
             mav.addObject("error", "Username or Password are incorrect.");
             return mav;
